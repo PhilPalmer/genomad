@@ -1,8 +1,6 @@
-FROM mambaorg/micromamba:0.25.1
-LABEL maintainer="Antonio Camargo (antoniop.camargo@lbl.gov)"
-LABEL version="1.2.0"
+FROM antoniopcamargo/genomad:latest@sha256:a2a3f1ed4052ae8293ce14fd84cb9dbcfb7496f800ba479abbfeeca38fa89c83
+LABEL authors="Phil Palmer" \
+    description="Docker image containing dependencies for geNomad https://github.com/apcamargo/genomad"
 
-RUN micromamba install -y -n base -c conda-forge -c bioconda genomad==1.2.0 && \
-    micromamba clean --all --yes
-WORKDIR /app
-ENTRYPOINT ["/usr/local/bin/_entrypoint.sh", "genomad"]
+# Add conda installation dir to PATH (instead of doing 'conda activate')
+ENV PATH /opt/conda/bin/:$PATH
